@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Asistencias</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Sistema de Gestión de Asistencias</h1>
+            <p>Universidad - Control de Asistencias</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active" data-section="alumnos">Alumnos</button>
+            <button class="nav-btn" data-section="docentes">Docentes</button>
+            <button class="nav-btn" data-section="directivos">Directivos</button>
+            <button class="nav-btn" data-section="administrativos">Administrativos</button>
+            <button class="nav-btn" data-section="vigilancia">Vigilancia</button>
+            <button class="nav-btn" data-section="reportes">Reportes</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sección Alumnos -->
+            <section id="alumnos-section" class="section active">
+                <h2>Gestión de Asistencias - Alumnos</h2>
+                
+                <!-- Formulario -->
+                <div class="form-container">
+                    <h3>Registrar Nueva Asistencia</h3>
+                    <form id="form-alumnos">
+                        <div class="form-group">
+                            <label for="alumno-id">ID Alumno:</label>
+                            <input type="number" id="alumno-id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="alumno-fecha">Fecha:</label>
+                            <input type="date" id="alumno-fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="alumno-entrada">Hora Entrada:</label>
+                            <input type="time" id="alumno-entrada">
+                        </div>
+                        <div class="form-group">
+                            <label for="alumno-salida">Hora Salida:</label>
+                            <input type="time" id="alumno-salida">
+                        </div>
+                        <div class="form-group">
+                            <label for="alumno-estado">Estado:</label>
+                            <select id="alumno-estado">
+                                <option value="presente">Presente</option>
+                                <option value="ausente">Ausente</option>
+                                <option value="tardanza">Tardanza</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="alumno-obs">Observaciones:</label>
+                            <textarea id="alumno-obs" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Registrar Asistencia</button>
+                    </form>
+                </div>
+
+                <!-- Tabla de registros -->
+                <div class="table-container">
+                    <h3>Lista de Asistencias</h3>
+                    <button class="btn-secondary" onclick="loadAlumnos()">Actualizar</button>
+                    <table id="tabla-alumnos">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Alumno ID</th>
+                                <th>Fecha</th>
+                                <th>Entrada</th>
+                                <th>Salida</th>
+                                <th>Estado</th>
+                                <th>Observaciones</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-alumnos">
+                            <tr>
+                                <td colspan="8" class="loading">Cargando...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Sección Docentes -->
+            <section id="docentes-section" class="section">
+                <h2>Gestión de Asistencias - Docentes</h2>
+                
+                <div class="form-container">
+                    <h3>Registrar Nueva Asistencia</h3>
+                    <form id="form-docentes">
+                        <div class="form-group">
+                            <label for="docente-id">ID Docente:</label>
+                            <input type="number" id="docente-id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="docente-fecha">Fecha:</label>
+                            <input type="date" id="docente-fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="docente-entrada">Hora Entrada:</label>
+                            <input type="time" id="docente-entrada">
+                        </div>
+                        <div class="form-group">
+                            <label for="docente-salida">Hora Salida:</label>
+                            <input type="time" id="docente-salida">
+                        </div>
+                        <div class="form-group">
+                            <label for="docente-estado">Estado:</label>
+                            <select id="docente-estado">
+                                <option value="presente">Presente</option>
+                                <option value="ausente">Ausente</option>
+                                <option value="tardanza">Tardanza</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="docente-obs">Observaciones:</label>
+                            <textarea id="docente-obs" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Registrar Asistencia</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <h3>Lista de Asistencias</h3>
+                    <button class="btn-secondary" onclick="loadDocentes()">Actualizar</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Docente ID</th>
+                                <th>Fecha</th>
+                                <th>Entrada</th>
+                                <th>Salida</th>
+                                <th>Estado</th>
+                                <th>Observaciones</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-docentes">
+                            <tr><td colspan="8" class="loading">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Sección Directivos -->
+            <section id="directivos-section" class="section">
+                <h2>Gestión de Asistencias - Directivos</h2>
+                
+                <div class="form-container">
+                    <h3>Registrar Nueva Asistencia</h3>
+                    <form id="form-directivos">
+                        <div class="form-group">
+                            <label for="directivo-id">ID Directivo:</label>
+                            <input type="number" id="directivo-id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="directivo-fecha">Fecha:</label>
+                            <input type="date" id="directivo-fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="directivo-entrada">Hora Entrada:</label>
+                            <input type="time" id="directivo-entrada">
+                        </div>
+                        <div class="form-group">
+                            <label for="directivo-salida">Hora Salida:</label>
+                            <input type="time" id="directivo-salida">
+                        </div>
+                        <div class="form-group">
+                            <label for="directivo-estado">Estado:</label>
+                            <select id="directivo-estado">
+                                <option value="presente">Presente</option>
+                                <option value="ausente">Ausente</option>
+                                <option value="tardanza">Tardanza</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="directivo-obs">Observaciones:</label>
+                            <textarea id="directivo-obs" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Registrar Asistencia</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <h3>Lista de Asistencias</h3>
+                    <button class="btn-secondary" onclick="loadDirectivos()">Actualizar</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Directivo ID</th>
+                                <th>Fecha</th>
+                                <th>Entrada</th>
+                                <th>Salida</th>
+                                <th>Estado</th>
+                                <th>Observaciones</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-directivos">
+                            <tr><td colspan="8" class="loading">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Sección Administrativos -->
+            <section id="administrativos-section" class="section">
+                <h2>Gestión de Asistencias - Administrativos</h2>
+                
+                <div class="form-container">
+                    <h3>Registrar Nueva Asistencia</h3>
+                    <form id="form-administrativos">
+                        <div class="form-group">
+                            <label for="admin-id">ID Administrativo:</label>
+                            <input type="number" id="admin-id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-fecha">Fecha:</label>
+                            <input type="date" id="admin-fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-entrada">Hora Entrada:</label>
+                            <input type="time" id="admin-entrada">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-salida">Hora Salida:</label>
+                            <input type="time" id="admin-salida">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-estado">Estado:</label>
+                            <select id="admin-estado">
+                                <option value="presente">Presente</option>
+                                <option value="ausente">Ausente</option>
+                                <option value="tardanza">Tardanza</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-obs">Observaciones:</label>
+                            <textarea id="admin-obs" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Registrar Asistencia</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <h3>Lista de Asistencias</h3>
+                    <button class="btn-secondary" onclick="loadAdministrativos()">Actualizar</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Admin ID</th>
+                                <th>Fecha</th>
+                                <th>Entrada</th>
+                                <th>Salida</th>
+                                <th>Estado</th>
+                                <th>Observaciones</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-administrativos">
+                            <tr><td colspan="8" class="loading">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Sección Vigilancia -->
+            <section id="vigilancia-section" class="section">
+                <h2>Gestión de Asistencias - Vigilancia</h2>
+                
+                <div class="form-container">
+                    <h3>Registrar Nueva Asistencia</h3>
+                    <form id="form-vigilancia">
+                        <div class="form-group">
+                            <label for="vigilancia-id">ID Vigilancia:</label>
+                            <input type="number" id="vigilancia-id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vigilancia-fecha">Fecha:</label>
+                            <input type="date" id="vigilancia-fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vigilancia-entrada">Hora Entrada:</label>
+                            <input type="time" id="vigilancia-entrada">
+                        </div>
+                        <div class="form-group">
+                            <label for="vigilancia-salida">Hora Salida:</label>
+                            <input type="time" id="vigilancia-salida">
+                        </div>
+                        <div class="form-group">
+                            <label for="vigilancia-estado">Estado:</label>
+                            <select id="vigilancia-estado">
+                                <option value="presente">Presente</option>
+                                <option value="ausente">Ausente</option>
+                                <option value="tardanza">Tardanza</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="vigilancia-obs">Observaciones:</label>
+                            <textarea id="vigilancia-obs" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Registrar Asistencia</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <h3>Lista de Asistencias</h3>
+                    <button class="btn-secondary" onclick="loadVigilancia()">Actualizar</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Vigilancia ID</th>
+                                <th>Fecha</th>
+                                <th>Entrada</th>
+                                <th>Salida</th>
+                                <th>Estado</th>
+                                <th>Observaciones</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-vigilancia">
+                            <tr><td colspan="8" class="loading">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+  </section>
+
+            <!-- Sección Reportes -->
+            <section id="reportes-section" class="section">
+                <h2>Reportes y Estadísticas</h2>
+                
+                <div class="stats-container" id="stats-container">
+                    <div class="stat-card">
+                        <h3>Alumnos</h3>
+                        <p class="stat-number" id="stat-alumnos">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Docentes</h3>
+                        <p class="stat-number" id="stat-docentes">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Directivos</h3>
+                        <p class="stat-number" id="stat-directivos">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Administrativos</h3>
+                        <p class="stat-number" id="stat-administrativos">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Vigilancia</h3>
+                        <p class="stat-number" id="stat-vigilancia">-</p>
+                    </div>
+                    <div class="stat-card total">
+                        <h3>Total General</h3>
+                        <p class="stat-number" id="stat-total">-</p>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="loadReportes()">Generar Reporte</button>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Sistema de Asistencias - Universidad 2025</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

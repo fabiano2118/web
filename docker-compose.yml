@@ -1,0 +1,83 @@
+
+services:
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - ALUMNOS_URL=http://alumnos-container:8001
+      - DOCENTES_URL=http://docentes-container:8002
+      - DIRECTIVOS_URL=http://directivos-container:8003
+      - ADMINISTRATIVOS_URL=http://administrativos-container:8004
+      - VIGILANCIA_URL=http://vigilancia-container:8005
+      - REPORTES_URL=http://reportes-container:8006
+      - PORT=8000
+    depends_on:
+      - microservicio-alumnos
+      - microservicio-docentes
+      - microservicio-directivos
+      - microservicio-administrativos
+      - microservicio-vigilancia
+      - microservicio-reportes
+    restart: unless-stopped
+
+  microservicio-alumnos:
+    build: ./microservicio-alumnos
+    container_name: alumnos-container
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=postgresql://postgres:jerickcasma060704@192.168.1.90:5432/sistema_asistencias?client_encoding=utf8
+      - PORT=8001
+    restart: unless-stopped
+
+  microservicio-docentes:
+    build: ./microservicio-docentes
+    container_name: docentes-container
+    ports:
+      - "8002:8002"
+    environment:
+      - DATABASE_URL=postgresql://postgres:jerickcasma060704@192.168.1.90:5432/sistema_asistencias?client_encoding=utf8
+      - PORT=8002
+    restart: unless-stopped
+
+  microservicio-directivos:
+    build: ./microservicio-directivos
+    container_name: directivos-container
+    ports:
+      - "8003:8003"
+    environment:
+      - DATABASE_URL=postgresql://postgres:jerickcasma060704@192.168.1.90:5432/sistema_asistencias?client_encoding=utf8
+      - PORT=8003
+    restart: unless-stopped
+
+  microservicio-administrativos:
+    build: ./microservicio-administrativos
+    container_name: administrativos-container
+    ports:
+      - "8004:8004"
+    environment:
+      - DATABASE_URL=postgresql://postgres:jerickcasma060704@192.168.1.90:5432/sistema_asistencias?client_encoding=utf8
+      - PORT=8004
+    restart: unless-stopped
+
+  microservicio-vigilancia:
+    build: ./microservicio-vigilancia
+    container_name: vigilancia-container
+    ports:
+      - "8005:8005"
+    environment:
+      - DATABASE_URL=postgresql://postgres:jerickcasma060704@192.168.1.90:5432/sistema_asistencias?client_encoding=utf8
+      - PORT=8005
+    restart: unless-stopped
+
+  microservicio-reportes:
+    build: ./microservicio-reportes
+    container_name: reportes-container
+    ports:
+      - "8006:8006"
+    environment:
+      - DATABASE_URL=postgresql://postgres:jerickcasma060704@192.168.1.90:5432/sistema_asistencias?client_encoding=utf8
+      - PORT=8006
+    restart: unless-stopped
